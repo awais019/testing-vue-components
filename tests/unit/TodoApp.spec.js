@@ -9,4 +9,15 @@ describe("TodoApp.vue", () => {
 
         expect(todo.text()).toBe("Learn vue testing.");
     });
+
+    test("should add new todo", async () => {
+        const wrapper = mount(TodoApp);
+
+        expect(wrapper.findAll("[data-test='todo']")).toHaveLength(1);
+
+        await wrapper.get("[data-test='new-todo']").setValue("New todo");
+        await wrapper.get("[data-test='form']").trigger("submit");
+
+        expect(wrapper.findAll("[data-test='todo']")).toHaveLength(2);
+    });
 });
